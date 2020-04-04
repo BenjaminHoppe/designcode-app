@@ -1,18 +1,48 @@
 import React from "react";
-import {Text} from "react-native";
+import {ScrollView, SafeAreaView} from "react-native";
 import styled from "styled-components";
 import Card from "./components/Card";
+import {Ionicons} from "@expo/vector-icons";
 
 export default function App() {
   return (
     <Container>
-      <TitleBar>
-        <Avatar source={require("./assets/avatar.jpg")} />
-        <Title>Welcome back,</Title>
-        <Name>Benjamin</Name>
-      </TitleBar>
-      <SubTitle>Continue Learning</SubTitle>
-      <Card />
+      <SafeAreaView>
+        <ScrollView>
+          <TitleBar>
+            <Avatar source={require("./assets/avatar.jpg")} />
+            <Title>Welcome back,</Title>
+            <Name>Benjamin</Name>
+            <Ionicons
+              name="ios-notifications"
+              size={32}
+              color="#4775f2"
+              style={{position: "absolute", right: 20, top: 5}}
+            />
+          </TitleBar>
+          <SubTitle>Continue Learning</SubTitle>
+          <ScrollView
+            horizontal={true}
+            style={{paddingBottom: 30}}
+            showsHorizontalScrollIndicator={false}
+          >
+            <Card
+              title="Styled Components"
+              image={require("./assets/background2.jpg")}
+              caption="React Native"
+              logo={require("./assets/logo-react.png")}
+              subtitle="5 of 12 sections"
+            />
+            <Card
+              title="Styled Components 2"
+              image={require("./assets/background1.jpg")}
+              caption="React Native"
+              logo={require("./assets/logo-react.png")}
+              subtitle="5 of 12 sections"
+            />
+          </ScrollView>
+        </ScrollView>
+      </SafeAreaView>
     </Container>
   );
 }

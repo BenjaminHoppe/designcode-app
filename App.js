@@ -8,7 +8,6 @@ import TabNavigator from "./navigator/TabNavigator";
 
 const initialState = {
   action: "",
-  name: "",
 };
 
 const reducer = (state = initialState, action) => {
@@ -17,8 +16,6 @@ const reducer = (state = initialState, action) => {
       return {action: "openMenu"};
     case "CLOSE_MENU":
       return {action: "closeMenu"};
-    case "UPDATE_NAME":
-      return {name: action.name};
     default:
       return state;
   }

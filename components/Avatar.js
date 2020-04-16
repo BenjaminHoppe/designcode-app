@@ -1,22 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import {connect} from "react-redux";
-
-const mapStateToProps = (state) => {
-  return {
-    name: state.name,
-  };
-};
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    updateName: (name) =>
-      dispatch({
-        type: "UPDATE_NAME",
-        name: name,
-      }),
-  };
-};
 
 class Avatar extends React.Component {
   state = {
@@ -31,12 +14,9 @@ class Avatar extends React.Component {
     })
       .then((response) => response.json())
       .then((response) => {
-        console.log(response);
         this.setState({
           photo: response[0].photo,
         });
-
-        this.props.updateName(response[0].name);
       });
   }
 
@@ -45,7 +25,7 @@ class Avatar extends React.Component {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Avatar);
+export default Avatar;
 
 const Image = styled.Image`
   width: 44px;

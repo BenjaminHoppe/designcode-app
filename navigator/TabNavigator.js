@@ -8,20 +8,35 @@ import {Ionicons} from "@expo/vector-icons";
 const activeColor = "#4775F2";
 const inactiveColor = "#b8bece";
 
-const HomeStack = createStackNavigator({
-  Home: HomeScreen,
-  Section: SectionScreen,
-});
+const HomeStack = createStackNavigator(
+  {
+    Home: HomeScreen,
+    Section: SectionScreen,
+  },
+  {
+    mode: "modal",
+  }
+);
 
-HomeStack.navigationOptions = {
-  tabBarLabel: "Home",
-  tabBarIcon: ({focused}) => (
-    <Ionicons
-      name="ios-home"
-      size={26}
-      color={focused ? activeColor : inactiveColor}
-    />
-  ),
+HomeStack.navigationOptions = ({navigation}) => {
+  var tabBarVisible = true;
+  const routeName = navigation.state.routes[navigation.state.index].routeName;
+
+  if (routeName == "Section") {
+    tabBarVisible = false;
+  }
+
+  return {
+    tabBarVisible,
+    tabBarLabel: "Home",
+    tabBarIcon: ({focused}) => (
+      <Ionicons
+        name="ios-home"
+        size={26}
+        color={focused ? activeColor : inactiveColor}
+      />
+    ),
+  };
 };
 
 const CoursesStack = createStackNavigator({
@@ -29,10 +44,10 @@ const CoursesStack = createStackNavigator({
 });
 
 CoursesStack.navigationOptions = {
-  tabBarLabel: "Home",
+  tabBarLabel: "Course",
   tabBarIcon: ({focused}) => (
     <Ionicons
-      name="ios-home"
+      name="ios-albums"
       size={26}
       color={focused ? activeColor : inactiveColor}
     />
@@ -42,6 +57,17 @@ CoursesStack.navigationOptions = {
 const ProjectsStack = createStackNavigator({
   Projects: SectionScreen,
 });
+
+ProjectsStack.navigationOptions = {
+  tabBarLabel: "Projects",
+  tabBarIcon: ({focused}) => (
+    <Ionicons
+      name="ios-folder"
+      size={26}
+      color={focused ? activeColor : inactiveColor}
+    />
+  ),
+};
 
 const TabNavigator = createBottomTabNavigator({
   HomeStack,

@@ -20,6 +20,7 @@ import Avatar from "../components/Avatar";
 const mapStateToProps = (state) => {
   return {
     action: state.action,
+    name: state.name,
   };
 };
 
@@ -94,7 +95,7 @@ class HomeScreen extends React.Component {
                   <Avatar />
                 </TouchableOpacity>
                 <Title>Welcome back,</Title>
-                <Name>Benjamin</Name>
+                <Name>{this.props.name}</Name>
                 <NotificationIcon
                   style={{
                     position: "absolute",
@@ -124,20 +125,14 @@ class HomeScreen extends React.Component {
                 showsHorizontalScrollIndicator={false}
               >
                 {cards.map((card, index) => (
-                  <TouchableOpacity
+                  <Card
                     key={index}
-                    onPress={() => {
-                      this.props.navigation.push("Section");
-                    }}
-                  >
-                    <Card
-                      title={card.title}
-                      image={card.image}
-                      caption={card.caption}
-                      logo={card.logo}
-                      subtitle={card.subtitle}
-                    />
-                  </TouchableOpacity>
+                    title={card.title}
+                    image={card.image}
+                    caption={card.caption}
+                    logo={card.logo}
+                    subtitle={card.subtitle}
+                  />
                 ))}
               </ScrollView>
               <SubTitle>Popular Courses</SubTitle>

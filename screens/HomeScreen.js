@@ -16,6 +16,41 @@ import Course from "../components/Course";
 import Menu from "../components/Menu";
 import {connect} from "react-redux";
 import Avatar from "../components/Avatar";
+import gql from "graphql-tag";
+import {Query} from "react-apollo";
+
+const CardsQuery = gql`
+  {
+    cardsCollection {
+      items {
+        title
+        subtitle
+        image {
+          title
+          description
+          contentType
+          fileName
+          size
+          url
+          width
+          height
+        }
+        subtitle
+        caption
+        logo {
+          title
+          description
+          contentType
+          fileName
+          size
+          url
+          width
+          height
+        }
+      }
+    }
+  }
+`;
 
 const mapStateToProps = (state) => {
   return {
@@ -122,30 +157,41 @@ class HomeScreen extends React.Component {
                 ))}
               </ScrollView>
               <SubTitle>Continue Learning</SubTitle>
-              <ScrollView
-                horizontal={true}
-                style={{paddingBottom: 30}}
-                showsHorizontalScrollIndicator={false}
-              >
-                {cards.map((card, index) => (
-                  <TouchableOpacity
-                    key={index}
-                    onPress={() => {
-                      this.props.navigation.push("Section", {
-                        section: card,
-                      });
-                    }}
-                  >
-                    <Card
-                      title={card.title}
-                      image={card.image}
-                      caption={card.caption}
-                      logo={card.logo}
-                      subtitle={card.subtitle}
-                    />
-                  </TouchableOpacity>
-                ))}
-              </ScrollView>
+
+              <Query query={CardsQuery}>
+                {({loading, error, data}) => {
+                  if (loading) return <Message>Loading...</Message>;
+                  if (error) return <Message>Error...</Message>;
+                  console.log(data.cardsCollection.items);
+                  return (
+                    <ScrollView
+                      horizontal={true}
+                      style={{paddingBottom: 30}}
+                      showsHorizontalScrollIndicator={false}
+                    >
+                      {data.cardsCollection.items.map((card, index) => (
+                        <TouchableOpacity
+                          key={index}
+                          onPress={() => {
+                            this.props.navigation.push("Section", {
+                              section: card,
+                            });
+                          }}
+                        >
+                          <Card
+                            title={card.title}
+                            image={card.image}
+                            caption={card.caption}
+                            logo={card.logo}
+                            subtitle={card.subtitle}
+                          />
+                        </TouchableOpacity>
+                      ))}
+                    </ScrollView>
+                  );
+                }}
+              </Query>
+
               <SubTitle>Popular Courses</SubTitle>
               {courses.map((course, index) => (
                 <Course
@@ -168,6 +214,13 @@ class HomeScreen extends React.Component {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomeScreen);
+
+const Message = styled.Text`
+  margin: 20px;
+  color: #b8bece;
+  font-size: 15px;
+  font-weight: 500;
+`;
 
 const RootView = styled.View`
   background: black;

@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import {TouchableOpacity, StatusBar} from "react-native";
+import {WebView} from "react-native-webview";
 import {Ionicons} from "@expo/vector-icons";
 
 class SectionScreen extends React.Component {
@@ -47,12 +48,49 @@ class SectionScreen extends React.Component {
             />
           </CloseView>
         </TouchableOpacity>
+        <Content>
+          <WebView
+            source={{html: htmlContent + htmlStyles}}
+            scalesPageToFit={false}
+            useWebKit={false}
+            scrollEnabled={false}
+          />
+        </Content>
       </Container>
     );
   }
 }
 
 export default SectionScreen;
+
+const htmlContent = `
+
+
+<h1>This is a title</h1>
+<p>This <strong>is</strong> a <a href="http://designcode.io">link</a></p>
+<img src="https://cl.ly/8861f359ed6d/download/Wave14.jpg" />
+`;
+
+const htmlStyles = `
+  <style>
+    * {
+      font-family: -apple-system, Roboto;
+      margin: 0;
+      padding: 0;
+    }
+
+    img {
+      width: 100%;
+      border-radius: 10px;
+      margin-top: 20px;
+    }
+  </style>
+`;
+
+const Content = styled.View`
+  height: 100%;
+  padding: 20px;
+`;
 
 const Container = styled.View`
   flex: 1;

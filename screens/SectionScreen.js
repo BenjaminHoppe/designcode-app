@@ -65,7 +65,9 @@ export default SectionScreen;
 
 const htmlContent = `
 
-
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
 <h1>This is a title</h1>
 <p>This <strong>is</strong> a <a href="http://designcode.io">link</a></p>
 <img src="https://cl.ly/8861f359ed6d/download/Wave14.jpg" />

@@ -1,8 +1,9 @@
 import React from "react";
 import styled from "styled-components";
-import {TouchableOpacity, StatusBar} from "react-native";
+import {TouchableOpacity, StatusBar, Linking} from "react-native";
 import {WebView} from "react-native-webview";
 import {Ionicons} from "@expo/vector-icons";
+import Markdown from "react-native-showdown";
 
 class SectionScreen extends React.Component {
   static navigationOptions = {
@@ -49,11 +50,25 @@ class SectionScreen extends React.Component {
           </CloseView>
         </TouchableOpacity>
         <Content>
-          <WebView
-            source={{html: htmlContent + htmlStyles}}
+          {/* <WebView
+            source={{html: htmlContent + section.content + htmlStyles}}
             scalesPageToFit={false}
             useWebKit={false}
             scrollEnabled={false}
+            ref="webview"
+            onNavigationStateChange={(event) => {
+              if (event.url != "about:blank") {
+                this.refs.webview.stopLoading();
+                Linking.openURL(event.url);
+              }
+            }}
+          /> */}
+          <Markdown
+            body={section.description}
+            // pureCSS={htmlStyles}
+            scalesPageToFit={false}
+            scrollEnabled={false}
+            styles={htmlStyles}
           />
         </Content>
       </Container>
@@ -68,9 +83,7 @@ const htmlContent = `
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
-<h1>This is a title</h1>
-<p>This <strong>is</strong> a <a href="http://designcode.io">link</a></p>
-<img src="https://cl.ly/8861f359ed6d/download/Wave14.jpg" />
+
 `;
 
 const htmlStyles = `

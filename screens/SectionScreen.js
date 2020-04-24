@@ -109,7 +109,7 @@ const htmlStyles = `
       text-transform: uppercase;
       color: #b8bece;
       font-weight: 600;
-      margin-top: 50px;
+      margin-top: 55px;
     }
 
     p {
